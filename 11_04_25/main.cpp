@@ -4,6 +4,7 @@
 #include <format>
 #include "date.h"
 
+// m02-a lab create a regular expression to divide a tab-separated string
 int main()
 {
     std::regex dateRegex{R"((\d{4})(\/|-)(1[0-2]|0?[1-9])(\2)([1-2][0-9]|3[0-1]|0?[1-9]))"};
