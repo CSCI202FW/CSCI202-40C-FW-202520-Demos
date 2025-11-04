@@ -1,34 +1,37 @@
 #include <iostream>
 #include <string>
 #include <regex>
-#include <format>
-#include "date.h"
+#include <fstream>
+#include <vector>
 
-// m02-a lab create a regular expression to divide a tab-separated string
 int main()
 {
-    std::regex dateRegex{R"((\d{4})(\/|-)(1[0-2]|0?[1-9])(\2)([1-2][0-9]|3[0-1]|0?[1-9]))"};
-    while (true)
+    std::ifstream in("random3.txt"); // open file
+    std::vector<std::string> email;
+    std::vector<std::string> ivyemail;
+    std::vector<std::string> ipaddr;
+    std::vector<std::string> phone;
+    std::vector<std::string> indphone;
+    std::vector<std::string> course;
+    std::vector<std::string> date;
+    std::vector<std::string> time;
+    std::vector<std::string> money;
+    std::regex ip{R"(\b(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))"};
+    std::regex dollar{R"(\$(?:\d{1,3},(?:\d{3},)*\d{3}|\d+)(?:\.\d{2})*)"};
+    while (!in.eof() && in.is_open())
     {
-        std::cout << "Enter a date (year/month/day) (q=quit): ";
         std::string str;
-        if (!getline(std::cin, str) || str == "q")
-        {
-            break;
-        }
-        std::smatch m;
-        if (std::regex_match(str, m, dateRegex))
-        {
-            date myDate(stoi(m[3]), stoi(m[5]), stoi(m[1]));
-            m[1];
-            m[2];
-            m[3];
+        getline(in, str);
+        const std::sregex_token_iterator end;
 
-            std::cout << std::format("  Valid Date: Year={}, month={}, day={}", myDate.getYear(), myDate.getMonth(), myDate.getDay()) << std::endl;
-        }
-        else
+        /*ip address*/
+        for (std::sregex_token_iterator iter{cbegin(str), cend(str), ip}; iter != end; ++iter)
         {
-            std::cout << "  Invalid Date!" << std::endl;
+            ipaddr.push_back(iter->str());
+        }
+        for (std::sregex_token_iterator iter{cbegin(str), cend(str), dollar}; iter != end; ++iter)
+        {
+            money.push_back(iter->str());
         }
     }
     return 0;

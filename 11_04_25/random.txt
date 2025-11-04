@@ -1,0 +1,15 @@
+
+
+5/5/2023 was a sunny day in the city, but Detective Jameson was feeling anything but sunny. He had been assigned to a new case involving a cybercrime that had taken place on the campus of Ivy Tech College.
+
+The case had started at 9:00 AM when the college's IT department had noticed some unusual activity on the network. Someone had hacked into the database server for the DBMS 110 class and had stolen sensitive information about the students, including their email addresses and phone numbers. The hacker had then sent out a mass email to all of the students, demanding a ransom of $50,000 in Bitcoin or else the stolen data would be made public. One student even received a phone call from 260-555-2222 demanding the ransom.
+
+Jameson and his team had been called in to investigate. They quickly identified the source of the attack: an IPv4 address 127.0.0.1 that had been used to access the database server. They traced the address to a local coffee shop and found surveillance footage of a man using a laptop at one of the tables. The man had been wearing a hoodie and a baseball cap, and his face was mostly obscured.
+
+The detectives managed to track down the email address used to send the ransom demand jsmith117@ivytech.edu. It belonged to a student in the DBMS 110 class named John Smith, who was also a part-time barista at the same coffee shop. When questioned, John claimed that his email account had been hacked and that he had nothing to do with the cybercrime.
+
+But the evidence was mounting against John. Not only had he been in possession of the stolen data, but the detectives also discovered that he had been struggling with financial problems. He had recently lost his job and had been unable to pay his rent. The $50,000 ransom demand was exactly the amount he needed to cover his debts.
+
+The detectives obtained a warrant to search John's apartment and found the hoodie and baseball cap seen in the surveillance footage. They also found evidence of Bitcoin transactions, including one for $50,000 that had been made on the same day as the ransom demand.
+
+John was arrested and charged with cybercrime and extortion. He pled guilty and was sentenced to five years in prison. The stolen data was recovered and returned to the college, but the incident had caused a major disruption for the DBMS 110 class and had left many students feeling uneasy about the security of their personal information.

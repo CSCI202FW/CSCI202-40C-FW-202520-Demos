@@ -1,0 +1,11 @@
+It was a quiet Friday evening, 2023-04-23 at 18:00, in the computer science building at Ivy Tech Community College, but the stillness was broken by a piercing scream. Students and faculty rushed to the source of the sound, and found the professor of the CSCI 210 class lying on the floor, unconscious and bleeding from a head wound.
+
+Police were called to the scene and began their investigation. The professor's laptop was open and logged in, revealing an active internet connection. The detective in charge of the case traced the IP address to a nearby apartment complex, but further investigation led to a dead end.
+
+However, the detective noticed an email address on the professor's screen, "jaffe@ivytech.edu". They dug deeper and found that the professor had been emailing someone about a potential data breach in the college's database management system. The email address belonged to a former student who had dropped out of the CSCI 210 class the previous semester.
+
+The student's phone number, 113-222-1818, was on file with the college, and when the detective called, the student answered. They denied any involvement in the crime, but the detective found discrepancies in their story.
+
+Eventually, the student cracked under pressure and confessed. They had hacked into the college's database management system and stolen sensitive information, including the professor's personal information. When the professor discovered the breach and threatened to report them, the student had attacked and injured the professor.
+
+The student was arrested and charged with multiple crimes, including assault and hacking. The professor survived the attack but was left with permanent brain damage. The dollar amount associated with this crime was immeasurable, as the consequences of the breach could have long-lasting and far-reaching effects. The case served as a reminder of the importance of cybersecurity and the devastating consequences of criminal acts in the digital age.
