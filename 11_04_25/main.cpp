@@ -23,7 +23,7 @@ int main()
             m[2];
             m[3];
 
-            std::cout << "  Valid Date." << std::endl;
+            std::cout << std::format("  Valid Date: Year={}, month={}, day={}", myDate.getYear(), myDate.getMonth(), myDate.getDay()) << std::endl;
         }
         else
         {
