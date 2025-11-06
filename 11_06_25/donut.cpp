@@ -136,3 +136,13 @@ std::ostream &operator<<(std::ostream &out, const Donut &d)
     out << d.toString();
     return out;
 }
+
+bool Donut::operator==(const Donut &right) const
+{
+    return this->icing == right.icing && this->topping == right.topping && this->drizzle == right.drizzle;
+}
+
+bool Donut::operator!=(const Donut &right) const
+{
+    return !(*this == right);
+}
