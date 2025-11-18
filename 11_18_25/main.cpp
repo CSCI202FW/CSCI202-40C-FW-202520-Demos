@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <limits>
+#include "linkedStack.h"
 
 const int DEFAULT = 0;
 void resetStream();
@@ -13,7 +14,8 @@ bool intLTX(int n, int x, int = DEFAULT);
 bool intGTEQ(int n, int x, int = DEFAULT);
 bool intLTEQ(int n, int x, int = DEFAULT);
 long fibNum(long f[], long n);
-
+void moveDisks(int, char source, char destination, char spare);
+void moveDisks(linkedStack<int> &source, linkedStack<int> &destination, linkedStack<int> &spare, char s, char d, char sp);
 // M04 part A lab
 // use the fibonacci number code from page 296 of the textbook
 // implement as a function
@@ -44,6 +46,19 @@ int main()
     fibSeq[0] = fibNum1;
     fibSeq[1] = fibNum2;
     std::cout << "The " << nthFibonacci << "th Fibonacci number is " << fibNum(fibSeq, nthFibonacci) << std::endl;
+
+    linkedStack<int> source;
+    linkedStack<int> destination;
+    linkedStack<int> spare;
+    for (int i = 4; i > 0; i--)
+    {
+        source.push(i);
+    }
+    moveDisks(4, '1', '3', '2');
+    std::cout << std::endl
+              << std::endl;
+    moveDisks(source, destination, spare, '1', '3', '2');
+
     return 0;
 }
 
@@ -118,4 +133,36 @@ long fibNum(long f[], long n)
     }
     f[n - 1] = fibNum(f, n - 1) + fibNum(f, n - 2);
     return f[n - 1];
+}
+
+void moveDisks(int count, char source, char destination, char spare)
+{
+    if (count > 0)
+    {
+        moveDisks(count - 1, source, spare, destination);
+        std::cout << "Move disk " << count << " from " << source << " to " << destination << std::endl;
+        moveDisks(count - 1, spare, destination, source);
+    }
+}
+
+void moveDisks(linkedStack<int> &source, linkedStack<int> &destination, linkedStack<int> &spare, char s, char d, char sp)
+{
+    if (!source.isEmptyStack())
+    {
+        if (!spare.isEmptyStack() && source.peek() > spare.peek())
+        {
+            moveDisks(spare, source, destination, sp, s, d);
+        }
+        else
+        {
+
+            int num = source.pop();
+            spare.push(num);
+
+            std::cout << "Move disk " << num << " from " << s << " to " << sp << std::endl;
+
+            moveDisks(source, spare, destination, s, sp, d);
+            moveDisks(destination, spare, source, d, sp, s);
+        }
+    }
 }
