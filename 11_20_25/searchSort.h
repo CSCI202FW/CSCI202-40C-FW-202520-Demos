@@ -80,7 +80,7 @@ void swap(linkedListIterator<t> &first, linkedListIterator<t> &second)
 }
 
 template <class t>
-linkedListIterator<t> findSmallest(unorderedLinkedList<t>, linkedListIterator<t> &begin)
+linkedListIterator<t> findSmallest(unorderedLinkedList<t> list, linkedListIterator<t> &begin)
 {
     t smallest = *begin;
     linkedListIterator<t> ret = begin;
