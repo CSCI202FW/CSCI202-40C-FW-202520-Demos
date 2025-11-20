@@ -100,7 +100,7 @@ void selectionSort(unorderedLinkedList<t> &list)
 {
     linkedListIterator<t> unsort = list.begin();
     int i = 1;
-    for (unsort; unsort != list.end(); ++it)
+    for (unsort; unsort != list.end(); ++unsort)
     {
         linkedListIterator<t> smallest = findSmallest(list, unsort);
         if (smallest != unsort)
