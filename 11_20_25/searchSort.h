@@ -79,4 +79,35 @@ void swap(linkedListIterator<t> &first, linkedListIterator<t> &second)
     *second = temp;
 }
 
+template <class t>
+linkedListIterator<t> findSmallest(unorderedLinkedList<t>, linkedListIterator<t> &begin)
+{
+    t smallest = *begin;
+    linkedListIterator<t> ret = begin;
+    for (linkedListIterator<t> it = begin + 1; it != list.end(); ++it)
+    {
+        if (*it < smallest)
+        {
+            smallest = *it;
+            ret = it;
+        }
+    }
+    return ret;
+}
+
+template <class t>
+void selectionSort(unorderedLinkedList<t> &list)
+{
+    linkedListIterator<t> unsort = list.begin();
+    int i = 1;
+    for (unsort; unsort != list.end(); ++it)
+    {
+        linkedListIterator<t> smallest = findSmallest(list, unsort);
+        if (smallest != unsort)
+        {
+            swap(unsort, smallest);
+        }
+    }
+}
+
 #endif

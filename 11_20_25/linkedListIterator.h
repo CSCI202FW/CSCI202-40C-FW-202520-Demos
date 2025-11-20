@@ -69,7 +69,7 @@ linkedListIterator<t> linkedListIterator<t>::operator+(int x)
     node<t> *temp = current;
     for (int i = 0; i < x && temp != nullptr; i++)
     {
-        temp = temp->next;
+        temp = temp->link;
     }
     return linkedListIterator<t>(temp);
 }
