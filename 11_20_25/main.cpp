@@ -11,6 +11,8 @@ int compareByName(Person *&, Person *&);
 int compareByAge(Person *&, Person *&);
 int compareByHeight(Person *&, Person *&);
 
+// M04 part b lab. which sort do you prefer and why?
+
 int main()
 {
     Person **people = new Person *[10];
@@ -68,7 +70,10 @@ int main()
     // std::cout << "Bubble Sort Finished!" << std::endl;
     // insertionSort(ilist, 1000000);
     // sList.insertionSort();
-    std::cout << "Insertion Sort Finished!" << std::endl;
+    mergeSort(ilist, 0, 1000000);
+    sList.mergeSort();
+    std::cout
+        << "Merge Sort Finished!" << std::endl;
 
     return 0;
 }
