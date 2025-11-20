@@ -110,4 +110,23 @@ void selectionSort(unorderedLinkedList<t> &list)
     }
 }
 
+template <class t>
+void insertionSort(t list[], int length)
+{
+    for (int firstOutOfOrder = 1; firstOutOfOrder < lenght; ++firstOutOfOrder)
+    {
+        if (lsit[firstOutOfOrder] < list[firstOutOfOrder - 1])
+        {
+            t temp = list[firstOutOfOrder];
+            int location = firstOutOfOrder;
+            do
+            {
+                list[location] = list[location - 1];
+                location--;
+            } while (location > 0 && list[location - 1] > temp);
+            list[location] = temp;
+        }
+    }
+}
+
 #endif

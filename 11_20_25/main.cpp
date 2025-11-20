@@ -11,12 +11,15 @@ int main()
     unorderedLinkedList<int> list;
     unorderedLinkedList<int> blist;
     unorderedLinkedList<int> sList;
+    int ilist[1000000];
     std::ifstream in("input.txt");
+    int i = 0;
     while (!in.eof())
     {
         int x;
         in >> x;
         list.insert(x);
+        ilist[i++] = x;
     }
     blist = list;
     sList = list;
@@ -32,8 +35,8 @@ int main()
     }
     // bubbleSort(blist);
     // std::cout << "Bubble Sort Finished!" << std::endl;
-    selectionSort(sList);
-    std::cout << "Selection Sort Finished!" << std::endl;
+    insertionSort(ilist, 1000000);
+    std::cout << "Insertin Sort Finished!" << std::endl;
 
     return 0;
 }
