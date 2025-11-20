@@ -113,9 +113,9 @@ void selectionSort(unorderedLinkedList<t> &list)
 template <class t>
 void insertionSort(t list[], int length)
 {
-    for (int firstOutOfOrder = 1; firstOutOfOrder < lenght; ++firstOutOfOrder)
+    for (int firstOutOfOrder = 1; firstOutOfOrder < length; ++firstOutOfOrder)
     {
-        if (lsit[firstOutOfOrder] < list[firstOutOfOrder - 1])
+        if (list[firstOutOfOrder] < list[firstOutOfOrder - 1])
         {
             t temp = list[firstOutOfOrder];
             int location = firstOutOfOrder;
