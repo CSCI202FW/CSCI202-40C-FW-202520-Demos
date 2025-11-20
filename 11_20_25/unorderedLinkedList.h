@@ -15,6 +15,7 @@ public:
     void insert(const t &newInfo);
     void deleteNode(const t &deleteItem);
     bool search(const t &searchItem) const;
+    void insertionSort();
 
 private:
     directionType direction;
@@ -158,4 +159,54 @@ void unorderedLinkedList<t>::insertLast(const t &newInfo)
     this->count++;
 }
 
+template <class t>
+void unorderedLinkedList<t>::insertionSort()
+{
+    node<t> *unsort;
+    node<t> *prev;
+    node<t> *current;
+    node<t> *prevC;
+
+    unsort = this->head->link;
+    prev = this->head;
+    while (unsort != nullptr)
+    {
+        if (*(unsort->data) < *(prev->data))
+        {
+            if (prev == this->head)
+            {
+                this->head->link = unsort->link;
+                unsort->link = this->head;
+                this->head = unsort;
+            }
+            else
+            {
+                current = this->head;
+                while (current != unsort && *(current->data) < *(unsort->data))
+                {
+                    prevC = current;
+                    current = current->link;
+                }
+                if (current == this->head)
+                {
+                    prev->link = unsort->link;
+                    unsort->link = this->head;
+                    this->head = unsort;
+                }
+                else
+                {
+                    prevC->link = unsort;
+                    prev->link = unsort->link;
+                    unsort->link = current;
+                }
+            }
+        }
+        else
+        {
+            prev = prev->link;
+        }
+        unsort = prev->link;
+    }
+    this->tail = prev;
+}
 #endif
