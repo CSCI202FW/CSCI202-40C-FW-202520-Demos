@@ -8,7 +8,7 @@ struct binaryNode
     t *data;
     binaryNode<t> *lLink;
     binaryNode<t> *rLink;
-    ~binaryNode() { delete data };
+    ~binaryNode() { delete data; };
 };
 
 template <class t>
@@ -34,14 +34,14 @@ protected:
     binaryNode<t> *&getRoot();
 
 private:
-    binaryNode<t> root;
+    binaryNode<t> *root;
     void copyTree(binaryNode<t> *&copiedTreeRoot, binaryNode<t> *otherTreeRoot);
     void destroy(binaryNode<t> *&p);
-    void inorder(binaryNode<t> *, std::ostringstream &out);
-    void preorder(binaryNode<t> *, std::ostringstream &out);
-    void postorder(binaryNode<t> *, std::ostringstream &out);
-    int nodeCount(binaryNode<t> *currentNode);
-    int leavesCount(binaryNode<t> *currentNode);
+    void inorder(binaryNode<t> *, std::ostringstream &out) const;
+    void preorder(binaryNode<t> *, std::ostringstream &out) const;
+    void postorder(binaryNode<t> *, std::ostringstream &out) const;
+    int nodeCount(binaryNode<t> *currentNode) const;
+    int leavesCount(binaryNode<t> *currentNode) const;
     int height(binaryNode<t> *p) const;
     int max(int x, int y) const;
 };
@@ -170,7 +170,7 @@ void binaryTreeType<t>::destroy(binaryNode<t> *&currentNode)
 }
 
 template <class t>
-void binaryTreeType<t>::inorder(binaryNode<t> *currentNode, std::ostringstream &out)
+void binaryTreeType<t>::inorder(binaryNode<t> *currentNode, std::ostringstream &out) const
 {
     if (currentNode != nullptr)
     { // Traverse the left subtree
@@ -183,7 +183,7 @@ void binaryTreeType<t>::inorder(binaryNode<t> *currentNode, std::ostringstream &
 }
 
 template <class t>
-void binaryTreeType<t>::preorder(binaryNode<t> *currentNode, std::ostringstream &out)
+void binaryTreeType<t>::preorder(binaryNode<t> *currentNode, std::ostringstream &out) const
 {
     if (currentNode != nullptr)
     {
@@ -192,12 +192,12 @@ void binaryTreeType<t>::preorder(binaryNode<t> *currentNode, std::ostringstream 
         // Traverse the left subtree
         preorder(currentNode->lLink, out);
         // Traverse the right subtree
-        preorder(currentNode->rLink, out)
+        preorder(currentNode->rLink, out);
     }
 }
 
 template <class t>
-void binaryTreeType<t>::postorder(binaryNode<t> *currentNode, std::ostringstream &out)
+void binaryTreeType<t>::postorder(binaryNode<t> *currentNode, std::ostringstream &out) const
 {
     if (currentNode != nullptr)
     {
@@ -211,7 +211,7 @@ void binaryTreeType<t>::postorder(binaryNode<t> *currentNode, std::ostringstream
 }
 
 template <class t>
-int binaryTreeType<t>::nodeCount(binaryNode<t> *currentNode)
+int binaryTreeType<t>::nodeCount(binaryNode<t> *currentNode) const
 {
     if (currentNode == nullptr)
     {
@@ -222,7 +222,7 @@ int binaryTreeType<t>::nodeCount(binaryNode<t> *currentNode)
 }
 
 template <class t>
-int binaryTreeType<t>::leavesCount(binaryNode<t> *currentNode)
+int binaryTreeType<t>::leavesCount(binaryNode<t> *currentNode) const
 {
     if (currentNode == nullptr)
     {
