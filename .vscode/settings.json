@@ -48,7 +48,8 @@
         "ctime": "cpp",
         "optional": "cpp",
         "regex": "cpp",
-        "sstream": "cpp"
+        "sstream": "cpp",
+        "iomanip": "cpp"
     },
     "cmake.sourceDirectory": "/home/avenable11/CSCI202-40C-FW-202520-Demos/11_11_25/unit_test"
 }

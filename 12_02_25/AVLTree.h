@@ -27,6 +27,7 @@ public:
     Iterator begin() { return Iterator(this->getRoot()); };
     Iterator find(const t &searchItem) const;
     Iterator end() { return Iterator(nullptr); };
+    bool isBalanced();
 
 private:
     void balanceFromLeft(nodeType<t> *&currentNode);
@@ -35,6 +36,9 @@ private:
     void rotateToRight(nodeType<t> *&currentNode);
     void insertIntoAVL(nodeType<t> *&currentNode, nodeType<t> *newNode, bool &isTaller);
     Iterator find(const t &searchItem, nodeType<t> *currentItem) const;
+    int calculateBalanceAtRoot();
+    int calculateBalance(nodeType<t> *currentNode);
+    bool isBalanced(nodeType<t> *currentNode);
 };
 
 template <class t>
@@ -216,12 +220,18 @@ void AVLTree<t>::rotateToRight(nodeType<t> *&currentNode)
 }
 
 template <class t>
-AVLTree<t>::Iterator AVLTree<t>::find(const t &searchItem) const
+typename AVLTree<t>::Iterator AVLTree<t>::find(const t &searchItem) const
 {
-    return find(searchItem, this->getRoot());
+    return find(searchItem, this->getConstRoot());
 }
 template <class t>
-AVLTree<t>::Iterator AVLTree<t>::find(const t &searchItem, nodeType<t> *currentItem) const
+bool AVLTree<t>::isBalanced()
+{
+    calculateBalanceAtRoot();
+    return isBalanced(this->getRoot());
+}
+template <class t>
+typename AVLTree<t>::Iterator AVLTree<t>::find(const t &searchItem, nodeType<t> *currentItem) const
 {
     if (currentItem == nullptr)
     {
@@ -240,6 +250,35 @@ AVLTree<t>::Iterator AVLTree<t>::find(const t &searchItem, nodeType<t> *currentI
     {
         return find(searchItem, currentItem->lLink);
     }
+}
+
+template <class t>
+int AVLTree<t>::calculateBalanceAtRoot()
+{
+    return calculateBalance(this->getRoot());
+}
+
+template <class t>
+int AVLTree<t>::calculateBalance(nodeType<t> *currentNode)
+{
+    if (currentNode != nullptr)
+    {
+        currentNode->bfactor = this->height(currentNode->rLink) - this->height(currentNode->lLink);
+        calculateBalance(currentNode->lLink);
+        calculateBalance(currentNode->rLink);
+        return currentNode->bfactor;
+    }
+    return 0;
+}
+
+template <class t>
+bool AVLTree<t>::isBalanced(nodeType<t> *currentNode)
+{
+    if (currentNode == nullptr)
+        return true;
+
+    bool balance = !(currentNode->bfactor > 1 || currentNode->bfactor < -1);
+    return balance && isBalanced(currentNode->lLink) && isBalanced(currentNode->rLink);
 }
 
 template <class t>
@@ -269,7 +308,7 @@ t AVLTree<t>::Iterator::next()
     return data;
 }
 template <class t>
-AVLTree<t>::Iterator AVLTree<t>::Iterator::operator++()
+typename AVLTree<t>::Iterator AVLTree<t>::Iterator::operator++()
 {
     if (nodeStack.isEmptyStack())
     {

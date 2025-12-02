@@ -1,118 +1,177 @@
-#include "binarySearchTree.h"
-#include "AVLTree.h"
-#include "person.h"
+#include "map.h"
 #include <iostream>
-#include <random>
 #include <fstream>
+#include <string>
+#include <iomanip>
 
-int compareNumbers(const int &first, const int &second);
-int compareByName(const Person &p1, const Person &p2);
-
-// get the people from the array into the AVL tree.
-
-// print the inorder traversal
+// M06 part a lab use an AI of your choice to add delete code to the AVL tree the tree should remain balanced.
 
 int main()
 {
-    binarySearchTree<int> tree3(compareNumbers);
-    AVLTree<int> tree(compareNumbers);
-    std::uniform_int_distribution<int> distribution(5, 100);
-    std::default_random_engine generator;
-    int num = distribution(generator);
-    AVLTree<int> tree2(compareNumbers);
-    std::ofstream out("out.txt");
-
-    for (int i = 0; i < num; i++)
+    map<int, std::string> hobbits;
+    std::ifstream name("names.txt");
+    for (int i = 0; !name.eof(); i++)
     {
-
-        try
-        {
-
-            tree3.insert(distribution(generator));
-        }
-        catch (const std::exception &e)
-        {
-            std::cerr << e.what() << '\n';
-        }
+        std::string in;
+        std::getline(name >> std::ws, in);
+        hobbits.insert(i, in);
     }
-    tree.insert(45);
-    tree.insert(26);
-    tree.insert(75);
-
-    tree.insert(25);
-    tree.insert(87);
-    tree.insert(46);
-    tree.insert(94);
-    tree.insert(58);
-    tree.insert(56);
-    std::cout << tree.inorderTraversal() << std::endl;
-    std::cout << tree.preorderTraversal() << std::endl;
-    std::cout << tree.postOrderTraversal() << std::endl;
-    std::cout << "Generated num: " << num << std::endl;
-    std::cout << "Tree Height: " << tree.treeheight() << std::endl;
-    std::cout << "Tree Nodes: " << tree.treeNodeCount() << std::endl;
-    std::cout << "Tree Leaves: " << tree.treeLeavesCount() << std::endl;
-    out << tree.preorderTraversal() << std::endl;
-    out.close();
-    std::ifstream in("out.txt");
-    while (!in.eof())
+    for (auto it = hobbits.begin(); it.hasNext(); ++it)
     {
-        int x;
-        in >> x;
-        if (!in)
+        pair<int, std::string> p = *it;
+        std::cout << p.getValue() << std::endl;
+    }
+    std::cout << std::endl
+              << std::endl;
+    std::cout << hobbits[6] << std::endl;
+    std::cout << std::setw(40) << std::setfill('-') << "-" << std::endl;
+    hobbits[0] = "Tasha Oakbottom";
+    std::cout << hobbits[0] << std::endl;
+    hobbits[15] = "Brianna Button";
+    std::cout
+        << std::setw(40) << std::setfill('-') << "-" << std::endl;
+    for (auto it = hobbits.begin(); it.hasNext(); ++it)
+    {
+        pair<int, std::string> p = *it;
+        std::cout << p.getValue() << std::endl;
+    }
+    std::cout << std::endl
+              << std::endl;
+
+    std::cout << "\n\n*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\nBegin Delete test:\n\n";
+
+    std::cout << "Notes about the delete debugger:\nType -1 to exit\nType -2 to print map\n";
+
+    while (true)
+    {
+
+        std::cout << "\n  *** \n";
+
+        int ind;
+
+        std::cout << "Enter index of node to be deleted:";
+
+        std::cin >> ind;
+
+        if (ind == -1)
+        {
+
             break;
-        tree2.insert(x);
+        }
+
+        if (ind == -2)
+        {
+
+            for (auto it = hobbits.begin(); it.hasNext(); ++it)
+
+            {
+
+                pair<int, std::string> p = *it;
+
+                std::cout << p.getValue() << std::endl;
+            }
+        }
+
+        else
+        {
+
+            try
+
+            {
+
+                std::cout << "Deleting " << hobbits.at(ind) << "\n";
+
+                std::cout << hobbits.deleteItem(ind)
+                          << std::endl;
+            }
+
+            catch (const std::out_of_range &e)
+
+            {
+
+                std::cout << e.what() << '\n';
+            }
+        }
     }
-    std::cout << tree2.inorderTraversal() << std::endl;
-    std::cout << tree2.preorderTraversal() << std::endl;
-    std::cout << tree2.postOrderTraversal() << std::endl;
-
-    Person **people = new Person *[10];
-    people[0] = new Person("Brian Busch", 32, 168);
-    people[1] = new Person("Amber Hammond", 49, 155);
-    people[2] = new Person("Jason Buckles", 28, 182);
-    people[3] = new Person("Richard Asbury", 42, 182);
-    people[4] = new Person("Rebecca Rivera", 69, 174);
-    people[5] = new Person("Nikia Shurtleff", 51, 163);
-    people[6] = new Person("Derek Hancock", 29, 168);
-    people[7] = new Person("Elias Gomez", 47, 184);
-    people[8] = new Person("Timothy Michael", 49, 170);
-    people[9] = new Person("Bernard McElroy", 60, 183);
-
-    AVLTree<Person> peopleTree(compareByName);
-
-    for (int i = 0; i < 10; i++)
-    {
-        delete people[i];
-    }
-    delete[] people;
-
-    return 0;
 }
+/*
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+Begin Delete test:
 
-int compareNumbers(const int &first, const int &second)
-{
-    if (first < second)
-        return -1;
-    else if (first == second)
-        return 0;
-    else
-        return 1;
-}
+Notes about the delete debugger:
+Type -1 to exit
+Type -2 to print map
 
-int compareByName(const Person &p1, const Person &p2)
-{
-    if (p1.getName() > p2.getName())
-    {
-        return 1;
-    }
-    if (p1.getName() < p2.getName())
-    {
-        return -1;
-    }
-    if (p1.getName() == p2.getName())
-    {
-        return 0;
-    }
-    return 0;
-}
+  ***
+Enter index of node to be deleted:-2
+Tasha Oakbottom
+Kalimac Gardner
+Dreux Hairyfoot
+Wandregisilus Longbottom
+Uffo Stumbletoe
+Pepin Proudbody
+Magneric Gluttonbelly
+Fredegar Harfoot
+Abbo Gluttonbelly
+Clotaire Zaragamba
+Brianna Button
+
+  ***
+Enter index of node to be deleted:0
+Deleting Tasha Oakbottom
+
+  ***
+Enter index of node to be deleted:-2
+Kalimac Gardner
+Dreux Hairyfoot
+Wandregisilus Longbottom
+Uffo Stumbletoe
+Pepin Proudbody
+Magneric Gluttonbelly
+Fredegar Harfoot
+Abbo Gluttonbelly
+Clotaire Zaragamba
+Brianna Button
+
+  ***
+*/
+/*
+Enter index of node to be deleted:0
+Deleting Arnoul Goodbody
+
+  ***
+Enter index of node to be deleted:1
+Deleting Kalimac Gardner
+
+  ***
+Enter index of node to be deleted:2
+Deleting Dreux Hairyfoot
+Cannot rotate empty node.
+
+  ***
+Enter index of node to be deleted:4
+Deleting Uffo Stumbletoe
+
+  ***
+Enter index of node to be deleted:5
+Deleting Wandregisilus Longbottom
+Cannot rotate empty node.
+
+  ***
+Enter index of node to be deleted:6
+Deleting Wandregisilus Longbottom
+
+  ***
+Enter index of node to be deleted:7
+Deleting Fredegar Harfoot
+
+  ***
+Enter index of node to be deleted:8
+Deleting Abbo Gluttonbelly
+
+  ***
+Enter index of node to be deleted:9
+Deleting Clotaire Zaragamba
+
+here we segfaulted and were pointed to line 408: switch(currentNode->lLink->bfactor) as currentNode->lLink does not exist and bfactor also does not exist.
+*/
