@@ -6,6 +6,8 @@
 #include <stdexcept>
 #include <vector>
 #include "unorderedLinkedList.h"
+#include "linkedQueue.h"
+#include <regex>
 
 class graphType
 {
@@ -20,10 +22,14 @@ public:
     std::string printGraph();
     std::string depthFirstTraversal();
     std::string dftAtVertex(int vertex);
+    std::string breadthFirstTraversal();
+    static std::regex nameRegex;
+    bool connected(int, int);
 
 protected:
     int maxSize;
     std::vector<unorderedLinkedList<int>> graph;
+    std::vector<std::string> names;
 
 private:
     void copyGraph(const graphType &);

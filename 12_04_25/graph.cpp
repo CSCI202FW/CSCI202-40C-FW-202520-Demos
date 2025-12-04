@@ -1,6 +1,8 @@
 #include "graph.h"
 // graph viz online https://dreampuf.github.io/GraphvizOnline/
 
+std::regex graphType::nameRegex{R"([[:alpha:]]+\s[[:alpha:]]+)"};
+
 graphType::graphType(int size)
 {
     if (size >= 0)
@@ -56,14 +58,37 @@ void graphType::createGraph(std::string filename)
     {
         throw std::runtime_error("Cannot open input file");
     }
-    int gSize = 0;
-    fin >> gSize;
-    if (gSize > maxSize)
+    while (!fin.eof())
+    {
+        std::string name;
+        getline(fin, name);
+        if (std::regex_match(name, nameRegex))
+        {
+            names.push_back(name);
+        }
+        else
+        {
+            if (maxSize < name.size())
+            {
+                maxSize = name.size();
+                graph.resize(maxSize);
+            }
+            std::istringstream sin(name);
+            sin >> vertex;
+            sin >> adjcentVertex;
+            while (adjcentVertex != -999)
+            {
+                graph[vertex].insert(adjcentVertex);
+                sin >> adjcentVertex;
+            }
+        }
+    }
+    /* if (gSize > maxSize)
     {
         maxSize = gSize;
         graph.resize(maxSize);
-    }
-    for (index = 0; index < gSize; index++)
+    } */
+    /* for (index = 0; index < gSize; index++)
     {
         fin >> vertex;
         fin >> adjcentVertex;
@@ -72,7 +97,7 @@ void graphType::createGraph(std::string filename)
             graph[vertex].insert(adjcentVertex);
             fin >> adjcentVertex;
         }
-    }
+    } */
     fin.close();
 }
 
@@ -140,6 +165,38 @@ std::string graphType::dftAtVertex(int vertex)
     return output;
 }
 
+std::string graphType::breadthFirstTraversal()
+{
+    linkedQueue<int> queue;
+    std::vector<bool> visited(graph.size());
+    visited.assign(visited.size(), false);
+    std::string out = "";
+    for (int i = 0; i < graph.size(); i++)
+    {
+        if (!visited[i])
+        {
+            queue.enqueue(i);
+            visited[i] = true;
+            out = out + " " + std::to_string(i) + " ";
+            while (!queue.isEmptyQueue())
+            {
+                int u = queue.dequeue();
+                for (auto graphIt = graph[u].begin(); graphIt != graph[u].end(); ++graphIt)
+                {
+                    int w = *graphIt;
+                    if (!visited[w])
+                    {
+                        queue.enqueue(w);
+                        visited[w] = true;
+                        out = out + " " + std::to_string(w) + " ";
+                    }
+                }
+            }
+        }
+    }
+    return out;
+}
+
 void graphType::copyGraph(const graphType &otherGraph)
 {
     if (!this->isEmpty())
@@ -157,7 +214,7 @@ void graphType::copyGraph(const graphType &otherGraph)
 void graphType::dft(int v, bool visited[], std::string &output)
 {
     visited[v] = true;
-    output = output + " " + std::to_string(v) + " ";
+    output = output + " --> " + names[v] + " ";
     linkedListIterator<int> graphIt;
     for (graphIt = graph[v].begin(); graphIt != graph[v].end(); ++graphIt)
     {

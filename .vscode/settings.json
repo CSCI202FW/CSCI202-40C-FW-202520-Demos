@@ -49,7 +49,21 @@
         "optional": "cpp",
         "regex": "cpp",
         "sstream": "cpp",
-        "iomanip": "cpp"
+        "iomanip": "cpp",
+        "any": "cpp",
+        "charconv": "cpp",
+        "condition_variable": "cpp",
+        "set": "cpp",
+        "ratio": "cpp",
+        "format": "cpp",
+        "fstream": "cpp",
+        "mutex": "cpp",
+        "semaphore": "cpp",
+        "span": "cpp",
+        "stop_token": "cpp",
+        "thread": "cpp",
+        "cinttypes": "cpp",
+        "variant": "cpp"
     },
     "cmake.sourceDirectory": "/home/avenable11/CSCI202-40C-FW-202520-Demos/11_11_25/unit_test"
 }
