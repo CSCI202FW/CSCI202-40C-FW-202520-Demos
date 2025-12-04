@@ -17,11 +17,17 @@ public:
     bool isEmpty() const;
     void createGraph(std::string);
     void clearGraph();
-    std::string printGraph() const;
+    std::string printGraph();
+    std::string depthFirstTraversal();
+    std::string dftAtVertex(int vertex);
 
-private:
+protected:
     int maxSize;
     std::vector<unorderedLinkedList<int>> graph;
+
+private:
+    void copyGraph(const graphType &);
+    void dft(int v, bool visited[], std::string &output);
 };
 
 #endif
