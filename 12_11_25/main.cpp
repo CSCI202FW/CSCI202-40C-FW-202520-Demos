@@ -36,7 +36,7 @@ int main()
     {
         int num;
         in >> num;
-        int hashValue = hashing_multiplication(num);
+        int hashValue = hash(num);
         if (ht[hashValue] == -1)
         {
             ht[hashValue] = num;
@@ -50,27 +50,18 @@ int main()
             bool found = false;
             int pCount = 0;
             int i = 1;
-            while (ht[hashValue] != -1 && !found)
+            while (ht[hashValue] != -1 && !found && pCount < HT_SIZE / 2)
             {
                 if (ht[hashValue] == num)
                 {
                     found = true;
                 }
-                else if (pCount == 0)
-                {
-                    hashValue = hashing_midsquare(num, 5);
-                    probeCount++;
-                    pCount++;
-                }
-                else if (pCount == 1)
-                {
-                    hashValue = hash(num);
-                    probeCount++;
-                    pCount++;
-                }
                 else
                 {
-                    hashValue = (hashValue + i) % HT_SIZE;
+                    hashValue = (hashValue + i * i) % HT_SIZE;
+                    probeCount++;
+                    pCount++;
+                    i++;
                 }
             }
             if (found)
@@ -79,16 +70,17 @@ int main()
                 probeCount -= pCount;
                 std::cout << "Duplicates are not allowed" << std::endl;
             }
+            else
             {
                 ht[hashValue] = num;
                 count++;
             }
         }
     }
-
+    in.close();
     std::cout << "There were " << collisions << " collisions." << std::endl;
     std::cout << "There were " << count << " items inserted." << std::endl;
-    std::cout << "There were " << probeCount << " linear probes done." << std::endl;
+    std::cout << "There were " << static_cast<double>(probeCount) / collisions << " average probes per collision." << std::endl;
 
     Person **people = new Person *[13];
     Person james("james", 28);
@@ -135,8 +127,8 @@ void setup()
 int hash(int key)
 {
     return key % HT_SIZE;
-    // return hashing_midsquare(key, 5);
-    // return hashing_multiplication(key);
+    return hashing_midsquare(key, 5);
+    return hashing_multiplication(key);
 }
 
 int hashing_midsquare(long key, int size)
