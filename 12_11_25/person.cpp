@@ -37,7 +37,7 @@ int Person::hash()
     int sum = 0;
     for (int i = 0; i < name.length(); i++)
     {
-        sum = sum + static_cast<int>(name[i]);
+        sum = sum + (static_cast<int>(name[i]) * i);
     }
     sum = sum + age;
     return sum;
